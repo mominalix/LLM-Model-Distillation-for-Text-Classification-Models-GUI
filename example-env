@@ -1,0 +1,29 @@
+# OpenAI API Configuration
+OPENAI_API_KEY=sk-proj-X
+# OPENAI_ORG_ID=  # Optional - only set if you have a specific organization ID
+
+# Model Configuration
+DEFAULT_TEACHER_MODEL=gpt-4.1-nano
+DEFAULT_STUDENT_MODEL=distilbert-base-uncased
+TEMPERATURE=0.7
+TOP_P=0.95
+
+# Data Configuration
+DEFAULT_SAMPLES_PER_CLASS=1000
+MAX_SEQUENCE_LENGTH=512
+BATCH_SIZE=32
+
+# Training Configuration
+LEARNING_RATE=2e-5
+NUM_EPOCHS=3
+EARLY_STOPPING_PATIENCE=2
+
+# Storage Configuration
+DATASETS_DIR=./datasets
+MODELS_DIR=./models
+CACHE_DIR=./cache
+
+# Security Configuration
+LOG_LEVEL=INFO
+REDACT_API_KEYS=true
+STRIP_PII=true
