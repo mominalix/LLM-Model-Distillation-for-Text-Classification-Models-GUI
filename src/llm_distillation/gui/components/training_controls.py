@@ -83,7 +83,7 @@ class TrainingControlsPanel(ctk.CTkFrame):
         # Validation button for custom models
         self.validate_model_button = ctk.CTkButton(
             self.custom_model_frame,
-            text="🔍 Validate Model",
+            text="Validate Model",
             command=self._validate_custom_model,
             height=30,
             fg_color="orange",
@@ -113,7 +113,7 @@ class TrainingControlsPanel(ctk.CTkFrame):
         
         self.upload_button = ctk.CTkButton(
             self.custom_frame,
-            text="📁 Browse Model",
+            text="Browse Model",
             command=self._browse_custom_model
         )
         self.upload_button.grid(row=1, column=0, padx=5, pady=5, sticky="ew")
@@ -134,7 +134,7 @@ class TrainingControlsPanel(ctk.CTkFrame):
         # Dataset selection label
         self.dataset_label = ctk.CTkLabel(
             self.dataset_frame,
-            text="📂 Dataset Source:",
+            text="Dataset Source:",
             font=ctk.CTkFont(size=14, weight="bold")
         )
         self.dataset_label.grid(row=0, column=0, columnspan=2, padx=5, pady=5, sticky="w")
@@ -153,7 +153,7 @@ class TrainingControlsPanel(ctk.CTkFrame):
         # Dataset browser button
         self.browse_dataset_button = ctk.CTkButton(
             self.dataset_frame,
-            text="📁 Browse Dataset Folder",
+            text="Browse Dataset Folder",
             command=self._on_browse_dataset,
             height=35
         )
@@ -269,7 +269,7 @@ class TrainingControlsPanel(ctk.CTkFrame):
         # Primary button
         self.train_button = ctk.CTkButton(
             self.buttons_frame,
-            text="🎓 Start Training",
+            text="Start Training",
             font=ctk.CTkFont(size=12, weight="bold"),
             height=35,
             state="disabled",
@@ -285,7 +285,7 @@ class TrainingControlsPanel(ctk.CTkFrame):
         # Evaluate button - compact
         self.evaluate_button = ctk.CTkButton(
             self.secondary_buttons,
-            text="📊 Evaluate",
+            text="Evaluate",
             font=ctk.CTkFont(size=11),
             height=30,
             state="disabled",
@@ -298,7 +298,7 @@ class TrainingControlsPanel(ctk.CTkFrame):
         # Export button - compact
         self.export_button = ctk.CTkButton(
             self.secondary_buttons,
-            text="💾 Export",
+            text="Export",
             font=ctk.CTkFont(size=11),
             height=30,
             state="disabled",
@@ -387,13 +387,13 @@ class TrainingControlsPanel(ctk.CTkFrame):
             
             if self._validate_dataset_folder(dataset_path):
                 self.selected_dataset_path = str(dataset_path)
-                self.current_dataset_var.set(f"📁 {dataset_path.name}")
+                self.current_dataset_var.set(f"Dataset: {dataset_path.name}")
                 self.enable_training(True)
                 messagebox.showinfo(
                     "Dataset Selected",
                     f"Dataset folder selected successfully!\n"
                     f"Path: {dataset_path.name}\n"
-                    f"✅ Ready to start training"
+                    f"Ready to start training"
                 )
             else:
                 # More detailed error message
@@ -438,13 +438,13 @@ class TrainingControlsPanel(ctk.CTkFrame):
         
         if self._validate_dataset_folder(latest_dataset):
             self.selected_dataset_path = str(latest_dataset)
-            self.current_dataset_var.set(f"✨ {latest_dataset.name}")
+            self.current_dataset_var.set(f"{latest_dataset.name}")
             self.enable_training(True)
             messagebox.showinfo(
                 "Dataset Selected",
                 f"Latest generated dataset selected!\n"
                 f"Path: {latest_dataset.name}\n"
-                f"✅ Ready to start training"
+                f"Ready to start training"
             )
         else:
             messagebox.showerror(
@@ -492,12 +492,12 @@ class TrainingControlsPanel(ctk.CTkFrame):
         
         if not model_name:
             self.model_validation_status.configure(
-                text="❌ Please enter a model name or URL",
+                text="Please enter a model name or URL",
                 text_color="red"
             )
             return
         
-        self.validate_model_button.configure(text="🔄 Validating...", state="disabled")
+        self.validate_model_button.configure(text="Validating...", state="disabled")
         self.model_validation_status.configure(text="Checking model...", text_color="orange")
         
         def validate_in_thread():
@@ -559,10 +559,10 @@ class TrainingControlsPanel(ctk.CTkFrame):
     def _validation_success(self, model_name: str, model_type: str) -> None:
         """Handle successful model validation."""
         self.model_validation_status.configure(
-            text=f"✅ {model_name} ({model_type}) - Compatible with text classification",
+                                text=f"{model_name} ({model_type}) - Compatible with text classification",
             text_color="green"
         )
-        self.validate_model_button.configure(text="🔍 Validate Model", state="normal")
+        self.validate_model_button.configure(text="Validate Model", state="normal")
         
         # Enable training since we have a valid custom model
         self.enable_training(True)
@@ -570,10 +570,10 @@ class TrainingControlsPanel(ctk.CTkFrame):
     def _validation_error(self, error_message: str) -> None:
         """Handle model validation error."""
         self.model_validation_status.configure(
-            text=f"❌ {error_message}",
+            text=f"{error_message}",
             text_color="red"
         )
-        self.validate_model_button.configure(text="🔍 Validate Model", state="normal")
+        self.validate_model_button.configure(text="Validate Model", state="normal")
     
     def _on_train_clicked(self) -> None:
         """Handle start training button click."""
@@ -636,7 +636,7 @@ class TrainingControlsPanel(ctk.CTkFrame):
         }
         
         info = model_specs.get(model_name, "Custom model selected")
-        self.model_info_label.configure(text=f"📋 {model_name}: {info}")
+        self.model_info_label.configure(text=f"{model_name}: {info}")
     
     def enable_training(self, enabled: bool) -> None:
         """Enable or disable training controls."""
@@ -663,8 +663,8 @@ class TrainingControlsPanel(ctk.CTkFrame):
         self.training_active = is_training
         
         if is_training:
-            self.train_button.configure(state="disabled", text="🔄 Training...")
-            self.training_status_label.configure(text="🔄 Training in progress...")
+            self.train_button.configure(state="disabled", text="Training...")
+            self.training_status_label.configure(text="Training in progress...")
             
             # Disable configuration controls during training
             self.student_dropdown.configure(state="disabled")
@@ -676,7 +676,7 @@ class TrainingControlsPanel(ctk.CTkFrame):
         else:
             self.train_button.configure(
                 state="normal" if self.training_enabled else "disabled",
-                text="🎓 Start Training"
+                text="Start Training"
             )
             self.training_status_label.configure(text="✓ Ready to train" if self.training_enabled else "Waiting for dataset...")
             

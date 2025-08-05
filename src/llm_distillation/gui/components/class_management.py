@@ -59,7 +59,7 @@ class ClassManagementPanel(ctk.CTkFrame):
         # Instructions
         self.instructions_label = ctk.CTkLabel(
             self,
-            text="💡 Add at least 2 class labels. Use clear, descriptive names (e.g., 'Positive', 'Negative', 'Neutral').",
+            text="Add at least 2 class labels. Use clear, descriptive names (e.g., 'Positive', 'Negative', 'Neutral').",
             font=ctk.CTkFont(size=12),
             text_color="gray"
         )

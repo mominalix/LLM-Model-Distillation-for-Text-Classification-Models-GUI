@@ -27,6 +27,7 @@ from .components import (
     ClassManagementPanel, 
     GenerationControlsPanel,
     TrainingControlsPanel,
+    TestingControlsPanel,
     ProgressPanel,
     MetricsPanel
 )
@@ -160,40 +161,40 @@ class MainWindow:
         # Left Column Sections
         row_counter = 0
         
-        # 1. Dataset Configuration Section
-        self.dataset_section = CollapsibleFrame(
-            self.left_column,
-            title="Dataset Configuration",
-            collapsed=False
-        )
-        self.dataset_section.grid(row=row_counter, column=0, sticky="ew", padx=5, pady=3)
-        row_counter += 1
-        
-        # Add dataset configuration content
-        self._create_dataset_config_content(self.dataset_section.get_content_frame())
-        
-        # 2. Data Generation Section
+        # 1. Synthetic Data Generation Section (merged dataset config + generation)
         self.generation_section = CollapsibleFrame(
             self.left_column,
-            title="Data Generation",
-            collapsed=False
+            title="Synthetic Data Generation",
+            collapsed=True
         )
         self.generation_section.grid(row=row_counter, column=0, sticky="ew", padx=5, pady=3)
         row_counter += 1
         
-        # Add generation content
-        self._create_generation_content(self.generation_section.get_content_frame())
+        # Add combined content
+        self._create_synthetic_data_content(self.generation_section.get_content_frame())
         
-        # 3. Model Training Section
+        # 2. Model Training Section
         self.training_section = CollapsibleFrame(
             self.left_column,
             title="Model Training",
-            collapsed=False
+            collapsed=True
         )
         self.training_section.grid(row=row_counter, column=0, sticky="ew", padx=5, pady=3)
+        row_counter += 1
         
         # Add training content
         self._create_training_content(self.training_section.get_content_frame())
+        
+        # 3. Model Testing Section
+        self.testing_section = CollapsibleFrame(
+            self.left_column,
+            title="Model Testing & Inference",
+            collapsed=True  # Collapsed by default to save space
+        )
+        self.testing_section.grid(row=row_counter, column=0, sticky="ew", padx=5, pady=3)
+        
+        # Add testing content
+        self._create_testing_content(self.testing_section.get_content_frame())
         
         # Right Column Sections
         row_counter = 0
@@ -221,8 +222,8 @@ class MainWindow:
         # Add results content
         self._create_results_content(self.results_section.get_content_frame())
     
-    def _create_dataset_config_content(self, parent) -> None:
-        """Create dataset configuration content."""
+    def _create_synthetic_data_content(self, parent) -> None:
+        """Create combined synthetic data generation content."""
         parent.grid_columnconfigure(0, weight=1)
         
         # Task Input Panel
@@ -303,10 +304,6 @@ class MainWindow:
             values=[model.value for model in OpenAIModel]
         )
         self.teacher_model_dropdown.grid(row=3, column=0, columnspan=2, sticky="ew", padx=5, pady=5)
-    
-    def _create_generation_content(self, parent) -> None:
-        """Create data generation content."""
-        parent.grid_columnconfigure(0, weight=1)
         
         # Generation Controls Panel
         self.generation_controls = GenerationControlsPanel(
@@ -315,7 +312,7 @@ class MainWindow:
             on_start_generation=self._start_generation,
             on_stop_generation=self._stop_generation
         )
-        self.generation_controls.grid(row=0, column=0, sticky="ew", padx=5, pady=3)
+        self.generation_controls.grid(row=3, column=0, sticky="ew", padx=5, pady=3)
     
     def _create_training_content(self, parent) -> None:
         """Create model training content."""
@@ -329,6 +326,19 @@ class MainWindow:
             on_export_model=self._export_model
         )
         self.training_controls.grid(row=0, column=0, sticky="ew", padx=5, pady=3)
+    
+    def _create_testing_content(self, parent) -> None:
+        """Create model testing content."""
+        parent.grid_columnconfigure(0, weight=1)
+        
+        # Testing Controls Panel
+        self.testing_controls = TestingControlsPanel(
+            parent, 
+            self.config,
+            on_model_loaded=self._on_testing_model_loaded,
+            on_inference_complete=self._on_inference_complete
+        )
+        self.testing_controls.grid(row=0, column=0, sticky="ew", padx=5, pady=3)
     
     def _create_progress_content(self, parent) -> None:
         """Create progress monitoring content."""
@@ -383,7 +393,7 @@ class MainWindow:
         # Section title
         train_title = ctk.CTkLabel(
             self.training_frame,
-            text="🎓 Model Training",
+            text="Model Training",
             font=ctk.CTkFont(size=18, weight="bold")
         )
         train_title.grid(row=0, column=0, pady=(10, 5), sticky="w", padx=10)
@@ -901,6 +911,27 @@ class MainWindow:
         except Exception as e:
             logger.error(f"Export failed: {e}")
             messagebox.showerror("Export Error", f"Model export failed:\n{e}")
+    
+    def _on_testing_model_loaded(self, model_path: str) -> None:
+        """Handle testing model being loaded."""
+        self._update_status(f"Testing model loaded: {Path(model_path).name}")
+        logger.info(f"Testing model loaded from: {model_path}")
+        
+        # Expand testing section if it's collapsed
+        if self.testing_section.collapsed:
+            self.testing_section.toggle()
+    
+    def _on_inference_complete(self, results: List[Any]) -> None:
+        """Handle inference completion."""
+        num_results = len(results)
+        avg_confidence = sum(r.confidence for r in results) / num_results if results else 0
+        
+        self._update_status(f"Inference complete: {num_results} samples, avg confidence: {avg_confidence:.3f}")
+        logger.info(f"Inference completed on {num_results} samples")
+        
+        # Show results section if it's collapsed
+        if self.results_section.collapsed:
+            self.results_section.toggle()
     
 
 

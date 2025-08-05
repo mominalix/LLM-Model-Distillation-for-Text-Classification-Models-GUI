@@ -44,7 +44,7 @@ class GenerationControlsPanel(ctk.CTkFrame):
         # Start generation button - compact
         self.start_button = ctk.CTkButton(
             self.primary_row,
-            text="🚀 Generate",
+            text="Generate",
             font=ctk.CTkFont(size=12, weight="bold"),
             height=32,
             command=self._on_start_clicked
@@ -54,7 +54,7 @@ class GenerationControlsPanel(ctk.CTkFrame):
         # Stop generation button - compact
         self.stop_button = ctk.CTkButton(
             self.primary_row,
-            text="⏹ Stop",
+            text="Stop",
             font=ctk.CTkFont(size=12),
             height=32,
             state="disabled",
@@ -72,7 +72,7 @@ class GenerationControlsPanel(ctk.CTkFrame):
         # Validate button - compact
         self.validate_button = ctk.CTkButton(
             self.secondary_row,
-            text="✓ Validate",
+            text="Validate",
             font=ctk.CTkFont(size=11),
             height=28,
             command=self._validate_setup,
@@ -84,7 +84,7 @@ class GenerationControlsPanel(ctk.CTkFrame):
         # Cost estimation button - compact
         self.estimate_button = ctk.CTkButton(
             self.secondary_row,
-            text="💰 Cost",
+            text="Cost",
             font=ctk.CTkFont(size=11),
             height=28,
             command=self._estimate_cost,
@@ -189,7 +189,7 @@ class GenerationControlsPanel(ctk.CTkFrame):
         """Validate the current setup."""
         # This would be connected to validation logic
         # For now, just show a status message
-        self.status_label.configure(text="✓ Setup validation passed")
+        self.status_label.configure(text="Setup validation passed")
         
         # Reset status after 3 seconds
         self.after(3000, lambda: self.status_label.configure(text="Ready to generate data"))
@@ -208,13 +208,13 @@ class GenerationControlsPanel(ctk.CTkFrame):
         self.generation_active = is_generating
         
         if is_generating:
-            self.start_button.configure(state="disabled", text="🔄 Generating...")
+            self.start_button.configure(state="disabled", text="Generating...")
             self.stop_button.configure(state="normal")
             self.validate_button.configure(state="disabled")
             self.estimate_button.configure(state="disabled")
-            self.status_label.configure(text="🔄 Generation in progress...")
+            self.status_label.configure(text="Generation in progress...")
         else:
-            self.start_button.configure(state="normal", text="🚀 Generate Data")
+            self.start_button.configure(state="normal", text="Generate Data")
             self.stop_button.configure(state="disabled")
             self.validate_button.configure(state="normal")
             self.estimate_button.configure(state="normal")

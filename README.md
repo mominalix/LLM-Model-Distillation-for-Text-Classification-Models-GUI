@@ -48,6 +48,14 @@ A production-grade, standalone GUI application for LLM knowledge distillation th
 - Support for partial datasets from early-stopped generation
 - Model export in multiple formats
 
+### Model Testing & Inference
+- Load and test any trained model from the repository
+- Single sample inference with confidence scores and top-k predictions
+- Batch processing for text files, CSV, and JSONL formats
+- Real-time inference progress monitoring
+- Export results in JSON, CSV, or JSONL formats
+- Comprehensive performance metrics and summary reports
+
 ## Installation
 
 ### Prerequisites
@@ -123,6 +131,12 @@ python main.py
    - Use generated dataset or browse for existing dataset folder
    - Monitor real-time training progress with live charts
 
+5. **Test Model**: In the "Model Testing & Inference" section:
+   - Load any trained model from available models or browse for model folder
+   - Test individual text samples with real-time predictions
+   - Process batch files (TXT, CSV, JSONL) for large-scale inference
+   - Export results and view comprehensive performance reports
+
 ### Interface Sections
 
 **Dataset Configuration**
@@ -143,6 +157,14 @@ python main.py
 - Training parameter configuration
 - Dataset source selection (generated or browse folder)
 - Real-time training metrics and progress
+
+**Model Testing & Inference**
+- Available trained models dropdown with auto-refresh
+- Browse and load custom model folders
+- Single sample testing with confidence scores
+- Batch file processing (TXT, CSV, JSONL formats)
+- Real-time inference progress and performance metrics
+- Results export in multiple formats (JSON, CSV, JSONL)
 
 **Progress Monitoring**
 - Live generation progress with detailed statistics
@@ -185,6 +207,13 @@ python main.py
 - Mixed precision training for efficiency
 - Real-time metric visualization
 
+**Comprehensive Testing**
+- Automatic detection of available trained models
+- Support for models exported in different formats
+- Single sample and batch inference capabilities
+- Performance benchmarking and confidence analysis
+- Detailed result reporting and export options
+
 ## File Structure
 
 ```
@@ -210,6 +239,9 @@ LLM Model Distillation for Text Classification/
 │   │   ├── trainer.py                   # Training orchestrator
 │   │   ├── distillation.py              # Knowledge distillation
 │   │   └── evaluation.py                # Model evaluation
+│   ├── testing/                         # Model testing & inference
+│   │   ├── inference.py                 # Single & batch inference
+│   │   └── batch_inference.py           # Batch processing utilities
 │   ├── security/                        # Security features
 │   │   └── api_key_manager.py           # API key security
 │   └── gui/                            # User interface
@@ -219,6 +251,7 @@ LLM Model Distillation for Text Classification/
 │           ├── class_management.py      # Class label management
 │           ├── generation_controls.py   # Generation controls
 │           ├── training_controls.py     # Training controls
+│           ├── testing_controls.py      # Testing & inference controls
 │           ├── progress_panel.py        # Progress monitoring
 │           ├── metrics_panel.py         # Quality metrics display
 │           ├── collapsible_frame.py     # Collapsible UI sections

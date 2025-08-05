@@ -45,7 +45,7 @@ class TaskInputPanel(ctk.CTkFrame):
         # Tips label
         self.tips_label = ctk.CTkLabel(
             self,
-            text="💡 Tip: Be specific about your classification goal and provide context about the domain.",
+            text="Tip: Be specific about your classification goal and provide context about the domain.",
             font=ctk.CTkFont(size=12),
             text_color="gray"
         )

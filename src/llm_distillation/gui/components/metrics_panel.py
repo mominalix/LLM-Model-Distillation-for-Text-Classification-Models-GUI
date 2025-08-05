@@ -208,7 +208,7 @@ class MetricsPanel(ctk.CTkFrame):
         # Export button
         self.export_button = ctk.CTkButton(
             self.viz_frame,
-            text="💾 Export Metrics",
+            text="Export Metrics",
             command=self._export_metrics
         )
         self.export_button.grid(row=2, column=0, padx=10, pady=5, sticky="e")

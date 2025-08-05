@@ -198,7 +198,7 @@ class ProgressPanel(ctk.CTkFrame):
         # Chart title
         self.chart_title = ctk.CTkLabel(
             self.chart_frame,
-            text="📈 Training Metrics",
+            text="Training Metrics",
             font=ctk.CTkFont(size=14, weight="bold")
         )
         self.chart_title.grid(row=0, column=0, padx=10, pady=5, sticky="w")
@@ -252,7 +252,7 @@ class ProgressPanel(ctk.CTkFrame):
         # Overall status
         self.overall_status_label = ctk.CTkLabel(
             self.status_frame,
-            text="🔄 System Status: Ready",
+            text="System Status: Ready",
             font=ctk.CTkFont(size=14, weight="bold")
         )
         self.overall_status_label.grid(row=0, column=0, padx=10, pady=5, sticky="w")
@@ -272,7 +272,7 @@ class ProgressPanel(ctk.CTkFrame):
         self.gen_progress.set(0)
         self.gen_percent_label.configure(text="0%")
         self.gen_status_label.configure(text="Starting generation...")
-        self.overall_status_label.configure(text="🔄 System Status: Generating Data")
+        self.overall_status_label.configure(text="System Status: Generating Data")
         self.current_op_label.configure(text="Current Operation: Data Generation")
         
         # Start update timer
@@ -292,7 +292,7 @@ class ProgressPanel(ctk.CTkFrame):
         self.gen_progress.set(1.0)
         self.gen_percent_label.configure(text="100%")
         self.gen_status_label.configure(text="✓ Generation completed")
-        self.overall_status_label.configure(text="✅ System Status: Generation Complete")
+        self.overall_status_label.configure(text="System Status: Generation Complete")
     
     def start_training_progress(self) -> None:
         """Start tracking training progress."""
@@ -300,7 +300,7 @@ class ProgressPanel(ctk.CTkFrame):
         self.train_progress.set(0)
         self.train_percent_label.configure(text="0%")
         self.train_status_label.configure(text="Starting training...")
-        self.overall_status_label.configure(text="🔄 System Status: Training Model")
+        self.overall_status_label.configure(text="System Status: Training Model")
         self.current_op_label.configure(text="Current Operation: Model Training")
         
         # Clear metrics history
@@ -318,7 +318,7 @@ class ProgressPanel(ctk.CTkFrame):
         self.train_progress.set(1.0)
         self.train_percent_label.configure(text="100%")
         self.train_status_label.configure(text="✓ Training completed")
-        self.overall_status_label.configure(text="✅ System Status: Training Complete")
+        self.overall_status_label.configure(text="System Status: Training Complete")
     
     def increment_sample_count(self) -> None:
         """Increment the sample count."""
@@ -467,7 +467,7 @@ class ProgressPanel(ctk.CTkFrame):
         self.f1_label.configure(text="F1: -")
         
         # Reset status
-        self.overall_status_label.configure(text="🔄 System Status: Ready")
+        self.overall_status_label.configure(text="System Status: Ready")
         self.current_op_label.configure(text="Current Operation: Idle")
         
         # Clear metrics history
