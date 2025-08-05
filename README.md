@@ -1,4 +1,4 @@
-# LLM Model Distillation for Text Classification
+# LLMs Distillation for Text Classification
 
 ## Demo
 
